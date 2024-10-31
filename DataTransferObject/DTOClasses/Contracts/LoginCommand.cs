@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataTransferObject.DTOClasses.Contracts
 {
-    public class LoginDTO : BaseDTO<Guid>
+    public class LoginCommand
     {
         [Required]
         [EmailAddress]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataTransferObject.DTOClasses.Contracts
 {
-    public class RoleDTO : BaseDTO<Guid>
+    public class RoleCommand
     {
         public string PersianName { get; set; }
         public string EnglishName { get; set; }

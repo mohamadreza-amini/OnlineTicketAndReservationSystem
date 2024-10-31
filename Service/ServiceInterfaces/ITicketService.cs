@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Service.ServiceInterfaces;
 
-public interface ICategoryService 
-{ 
-    Task<bool> AddCategory(CategoryCommand categoryDTO);
-    Task<bool> DeleteCategory(int categoryId);
-    Task<List<CategoryResult>> GetCategories();
+public interface ITicketService
+{
+    Task<bool> AddTicket(TicketCommand ticket);
+    Task<bool> DeleteTicket(Guid ticketId);
+    Task<List<TicketResult>> GetTickets();
 }

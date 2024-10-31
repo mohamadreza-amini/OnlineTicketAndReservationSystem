@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataTransferObject.DTOClasses.Contracts;
 
-public class CategoryDTO : BaseDTO<int>
+public class CategoryCommand 
 {
-    public Guid CreatorUserId { get; set; }
-    public string CreatorUserName { get; set; }
     public string CategoryName { get; set; }
+    public Guid CreatedUserId { get; set; }
+    public string CreatorUserName { get; set; }
 }

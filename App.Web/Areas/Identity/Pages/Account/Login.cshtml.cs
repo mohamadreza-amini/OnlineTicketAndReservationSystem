@@ -33,7 +33,7 @@ namespace App.Web.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public LoginDTO LoginDto { get; set; }
+        public LoginCommand LoginDto { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 

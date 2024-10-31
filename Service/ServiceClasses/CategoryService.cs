@@ -1,4 +1,10 @@
-﻿using DataTransferObject.DTOClasses.Contracts;
+﻿using DataTransferObject;
+using DataTransferObject.DTOClasses.Contracts;
+using DataTransferObject.DTOClasses.Results;
+using Infrastructure.RepositoryInterfaces;
+using Mapster;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Service.ServiceInterfaces;
 using System;
@@ -9,26 +15,41 @@ using System.Threading.Tasks;
 
 namespace Service.ServiceClasses
 {
-    public class CategoryService:ICategoryService
+    public class CategoryService : ICategoryService
     {
-        public Task<bool> AddCategory(CategoryDTO addCategoryDTO)
+        private readonly IBaseRepository<Category, int> _categoryReoistory;
+        private readonly UserManager<User> _userManager;
+
+        public CategoryService(UserManager<User> userManager, IBaseRepository<Category, int> categoryReoistory)
         {
-            throw new NotImplementedException();
+            _userManager = userManager;
+            _categoryReoistory = categoryReoistory;
         }
 
-        public Task<bool> DeleteCategory(int categoryId)
+        public async Task<bool> AddCategory(CategoryCommand categoryDTO)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(categoryDTO.CategoryName) && await _userManager.FindByIdAsync(categoryDTO.CreatedUserId.ToString()) != null)
+            {
+                var category = categoryDTO.Adapt<Category>();
+                category.CreatedDateTime = category.UpdatedDateTime = DateTime.Now;
+                category.UpdatedUserId = category.CreatedUserId;
+                await _categoryReoistory.CreateDataAsync(category);
+                return true;
+            }
+            return false;
         }
 
-        public CategoryDTO TranslateToDTO(Category entity)
+        public async Task<bool> DeleteCategory(int categoryId)
         {
-            throw new NotImplementedException();
+            return await _categoryReoistory.DeleteDataAsync(categoryId);
         }
 
-        public Category TranslateToEntity(CategoryDTO dto)
+        public async Task<List<CategoryResult>> GetCategories()
         {
-            throw new NotImplementedException();
+            var categories= await(await _categoryReoistory.GetAllAsync()).ToListAsync();
+            return categories.Adapt<List<CategoryResult>>();  
         }
+
+
     }
 }

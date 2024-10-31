@@ -21,27 +21,27 @@ namespace Service.ServiceClasses
             _userManager = userManager;
         }
 
-        public async Task<UserDTO> CreateUser(UserDTO user)
+        public async Task<UserCommand> CreateUser(UserCommand user)
         {
             var data = TranslateToEntity(user);
             await _userManager.CreateAsync(data);
             return user;
         }
 
-        public async Task<List<UserDTO>> GetAllUser()
+        public async Task<List<UserCommand>> GetAllUser()
         {
             List<User> data = await _userManager.Users.ToListAsync();
-            List<UserDTO> result = data.Any() ? data.Select(TranslateToDTO).ToList() : new List<UserDTO>();
+            List<UserCommand> result = data.Any() ? data.Select(TranslateToDTO<UserCommand>).ToList() : new List<UserCommand>();
             return result;
-
         }
 
-        public UserDTO TranslateToDTO(User entity)
+        public DTO TranslateToDTO<DTO>(User entity)
         {
-            return entity.Adapt<UserDTO>();
+            return entity.Adapt<DTO>();
         }
 
-        public User TranslateToEntity(UserDTO dto)
+      
+        public User TranslateToEntity<DTO>(DTO dto)
         {
             return dto.Adapt<User>();
         }

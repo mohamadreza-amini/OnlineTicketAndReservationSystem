@@ -48,7 +48,7 @@ namespace App.Web.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public UserDTO Input { get; set; }
+        public UserCommand Input { get; set; }
 
         public string ReturnUrl { get; set; }
 

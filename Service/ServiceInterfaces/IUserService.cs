@@ -1,4 +1,5 @@
-﻿using DataTransferObject.DTOClasses;
+﻿using DataTransferObject;
+using DataTransferObject.DTOClasses;
 using Model;
 using Model.Entities;
 using System;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Service.ServiceInterfaces
 {
-    public interface IUserService : IServiceBase<User, UserDTO, Guid>
+    public interface IUserService 
     {
-        Task<UserDTO> CreateUser(UserDTO user);
-        Task<List<UserDTO>> GetAllUser();
+        Task<UserCommand> CreateUser(UserCommand user);
+        Task<List<UserCommand>> GetAllUser();
     }
 }

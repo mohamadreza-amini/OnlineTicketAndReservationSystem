@@ -1,4 +1,5 @@
-﻿using DataTransferObject.DTOClasses.Contracts;
+﻿using DataTransferObject;
+using DataTransferObject.DTOClasses.Contracts;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Service.ServiceInterfaces
 {
-    public interface IRoleService : IServiceBase<Role, RoleDTO, Guid>
+    public interface IRoleService
     {
-        Task<RoleDTO> GetRole(Guid id);
-        Task<RoleDTO> CreateRole(RoleDTO roleDTO);
+        Task<RoleCommand> GetRole(Guid id);
+        Task<RoleCommand> CreateRole(RoleCommand roleDTO);
     }
 }

@@ -19,7 +19,7 @@ namespace Service.ServiceClasses
             _roleManager = roleManager;
         }
 
-        public async Task<RoleDTO> CreateRole(RoleDTO roleDTO)
+        public async Task<RoleCommand> CreateRole(RoleCommand roleDTO)
         {
             var role = TranslateToEntity(roleDTO);
             await _roleManager.CreateAsync(role);
@@ -27,19 +27,25 @@ namespace Service.ServiceClasses
 
         }
 
-        public async Task<RoleDTO> GetRole(Guid id)
+        public async Task<RoleCommand> GetRole(Guid id)
         {
             var role = await _roleManager.FindByIdAsync(id.ToString());
-            var data = TranslateToDTO(role);
+            var data = TranslateToDTO<RoleCommand>(role);
             return data;
         }
 
-        public RoleDTO TranslateToDTO(Role entity)
+   
+        public DTO TranslateToDTO<DTO>(Role entity)
         {
-            return entity.Adapt<RoleDTO>();
+            return entity.Adapt<DTO>();
         }
 
-        public Role TranslateToEntity(RoleDTO dto)
+        public Role TranslateToEntity(RoleCommand dto)
+        {
+            return dto.Adapt<Role>();
+        }
+
+        public Role TranslateToEntity<DTO>(DTO dto)
         {
             return dto.Adapt<Role>();
         }

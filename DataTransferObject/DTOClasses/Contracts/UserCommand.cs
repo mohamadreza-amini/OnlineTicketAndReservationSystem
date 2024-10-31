@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataTransferObject.DTOClasses
 {
-    public class UserDTO : BaseDTO<Guid>
+    public class UserCommand 
     {
         [Required(ErrorMessage = "وارد کردن نام الزامی است")]
         [Display(Name = "نام")]
