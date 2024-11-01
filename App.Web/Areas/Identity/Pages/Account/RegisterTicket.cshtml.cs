@@ -37,7 +37,7 @@ public class RegisterTicketModel : PageModel
         await _ticketService.AddTicket(ticketCommand);
 
         ticketCommand.Categories = await _categoryService.GetCategories();
-        return Page();
+        return RedirectToPage("TicketList");
     
     }
 }
