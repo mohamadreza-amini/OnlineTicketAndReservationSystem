@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataTransferObject.DTOClasses
+namespace DataTransferObject.DTOClasses.Contracts.Commands
 {
-    public class UserCommand 
+    public class UserCommand
     {
         [Required(ErrorMessage = "وارد کردن نام الزامی است")]
         [Display(Name = "نام")]

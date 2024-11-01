@@ -1,5 +1,4 @@
-﻿using DataTransferObject.DTOClasses;
-using DataTransferObject.DTOClasses.Contracts;
+﻿using DataTransferObject.DTOClasses.Contracts.Commands;
 using DataTransferObject.DTOClasses.Results;
 using Mapster;
 using Model.Entities;

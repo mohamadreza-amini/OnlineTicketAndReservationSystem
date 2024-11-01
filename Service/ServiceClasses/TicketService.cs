@@ -1,4 +1,4 @@
-﻿using DataTransferObject.DTOClasses.Contracts;
+﻿using DataTransferObject.DTOClasses.Contracts.Commands;
 using DataTransferObject.DTOClasses.Results;
 using Infrastructure.RepositoryInterfaces;
 using Mapster;

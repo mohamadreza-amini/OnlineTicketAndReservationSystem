@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataTransferObject.DTOClasses.Contracts
+namespace DataTransferObject.DTOClasses.Contracts.Commands
 {
-    public class TicketCommand 
+    public class TicketCommand
     {
         public string TicketName { get; set; }
         public int Capacity { get; set; }

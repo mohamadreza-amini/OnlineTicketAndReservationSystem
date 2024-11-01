@@ -1,5 +1,5 @@
 ﻿using DataTransferObject;
-using DataTransferObject.DTOClasses.Contracts;
+using DataTransferObject.DTOClasses.Contracts.Commands;
 using DataTransferObject.DTOClasses.Results;
 using Model.Entities;
 using System;

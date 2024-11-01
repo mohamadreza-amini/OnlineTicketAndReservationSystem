@@ -1,4 +1,4 @@
-﻿using DataTransferObject.DTOClasses.Contracts;
+﻿using DataTransferObject.DTOClasses.Contracts.Commands;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Model.Entities;

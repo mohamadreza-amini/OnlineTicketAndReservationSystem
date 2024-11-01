@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Model.Entities;
-using DataTransferObject.DTOClasses.Contracts;
+using DataTransferObject.DTOClasses.Contracts.Commands;
 
 namespace App.Web.Areas.Identity.Pages.Account
 {
