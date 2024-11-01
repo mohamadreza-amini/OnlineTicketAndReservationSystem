@@ -1,0 +1,33 @@
+﻿@page
+@model App.Web.Areas.Identity.Pages.Account.TicketListModel
+@{
+}
+
+
+
+<div class="container">
+    <h2 class="text-center">Ticket List</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                
+                <th>Ticket Name</th>
+                <th>Capacity</th>
+                <th>Price</th>
+                <th>Category Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in Model.TicketResults)
+            {
+                <tr>
+                   
+                    <td>@ticket.TicketName</td>
+                    <td>@ticket.Capacity</td>
+                    <td>@ticket.price.ToString("C")</td> 
+                    <td>@ticket.CategoryName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -14,24 +14,18 @@ namespace Service
     {
         public static void RegisterMapping()
         {
-            TypeAdapterConfig<Role, RoleCommand>.NewConfig()
+            /*TypeAdapterConfig<Role, RoleCommand>.NewConfig()
                 .Map(x => x.Description, x => x.RoleDescription)
                 .Map(x => x.EnglishName, x => x.RoleName)
-                .Map(x => x.PersianName, x => x.RolePersianName);
-            TypeAdapterConfig<User, UserCommand>.NewConfig()
-               .Map(x => x.FirstName, x => x.FirstName)
-               .Map(x => x.LastName, x => x.LastName)
-               .Map(x => x.Email, x => x.Email)
-               .Map(x => x.Password, x => x.PasswordHash)
-               .Map(x => x.ConfirmPassword, x => x.PasswordHash)
-               .Map(x => x.Email, x => x.UserName);
-            TypeAdapterConfig<UserCommand, User>.NewConfig()
+                .Map(x => x.PersianName, x => x.RolePersianName);*/
+            
+            /*TypeAdapterConfig<UserCommand, User>.NewConfig()
                .Map(x => x.FirstName, x => x.FirstName)
                .Map(x => x.LastName, x => x.LastName)
                .Map(x => x.Email, x => x.Email)
                .Map(x => x.PasswordHash, x => x.Password)
                .Map(x => x.PasswordHash, x => x.ConfirmPassword)
-               .Map(x => x.UserName, x => x.Email);
+               .Map(x => x.UserName, x => x.Email);*/
 
 
             /*TypeAdapterConfig<CategoryCommand, Category>.NewConfig()
@@ -43,6 +37,15 @@ namespace Service
 
             TypeAdapterConfig<Ticket, TicketResult>.NewConfig()
               .Map(x => x.CategoryName, y => y.Category.CategoryName);
+
+            TypeAdapterConfig<User, UserCommand>.NewConfig()  
+               .Map(x => x.Email, x => x.UserName);
+
+            TypeAdapterConfig<UserCommand, User>.NewConfig()
+               .Map(x => x.UserName, x => x.Email);
+
+            TypeAdapterConfig<CategoryCommand, Category>.NewConfig()
+               .Map(x => x.CreatedUserId, x => x.CreatedUserId);
 
 
         }

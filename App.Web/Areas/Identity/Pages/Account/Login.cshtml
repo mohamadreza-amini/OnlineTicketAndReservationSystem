@@ -31,16 +31,16 @@
                                     <form  method="post">
                                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="LoginDto.Email" required placeholder="name@example.com" />
-                                            <label asp-for="LoginDto.Email">آدرس ایمیل</label>
+                                            <input class="form-control" asp-for="loginCommand.Email" required placeholder="name@example.com" />
+                                            <label asp-for="loginCommand.Email">آدرس ایمیل</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="LoginDto.Password" required placeholder="Password" />
-                                            <label asp-for="LoginDto.Password">رمز عبور</label>
+                                            <input class="form-control" asp-for="loginCommand.Password" required placeholder="Password" />
+                                            <label asp-for="loginCommand.Password">رمز عبور</label>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" asp-for="LoginDto.RememberMe" required value="" />
-                                            <label class="form-check-label" asp-for="LoginDto.RememberMe">Remember Password</label>
+                                            <input class="form-check-input" asp-for="loginCommand.RememberMe"  value="" />
+                                            <label class="form-check-label" asp-for="loginCommand.RememberMe">Remember Password</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" >Forgot Password?</a>

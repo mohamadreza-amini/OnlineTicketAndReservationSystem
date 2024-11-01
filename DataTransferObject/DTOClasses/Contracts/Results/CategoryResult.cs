@@ -8,7 +8,7 @@ namespace DataTransferObject.DTOClasses.Results;
 
 public class CategoryResult
 {
-    public int id;
+    public int Id { get; set; }
     public string CategoryName { get; set; }
 
 }

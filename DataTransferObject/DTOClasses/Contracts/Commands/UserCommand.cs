@@ -22,6 +22,11 @@ namespace DataTransferObject.DTOClasses.Contracts.Commands
         [EmailAddress]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "وارد کردن موبایل الزامی است")]
+        [Display(Name = "موبایل")]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
         [Required(ErrorMessage = "وارد کردن کلمه عبور الزامی است ")]
         [Display(Name = "کلمه عبور ")]
         [StringLength(100, ErrorMessage = "کلمه عبور  باید حداقل ۶ حرف باشد", MinimumLength = 6)]

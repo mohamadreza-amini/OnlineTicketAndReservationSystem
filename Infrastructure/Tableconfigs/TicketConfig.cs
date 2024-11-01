@@ -17,7 +17,7 @@ namespace Infrastructure.Tableconfigs
 
             builder.Property(x=>x.TicketName).HasColumnType(SqlDbType.NVarChar.ToString()).HasMaxLength(100).IsRequired();
 
-            builder.Property(x=>x.price).HasColumnType(SqlDbType.Decimal.ToString()).HasPrecision(3).IsRequired();
+            builder.Property(x=>x.price).HasColumnType(SqlDbType.Decimal.ToString()).HasPrecision(13,3).IsRequired();
 
             builder.HasOne(x=>x.Category).WithMany(x=>x.Tickets).HasForeignKey(x=>x.CategoryId).OnDelete(DeleteBehavior.NoAction);
 

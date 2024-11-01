@@ -4,6 +4,7 @@ using Infrastructure.RepositoryInterfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
+using Service;
 using Service.ServiceClasses;
 using Service.ServiceInterfaces;
 using System.Security.Claims;
@@ -23,10 +24,21 @@ namespace App.Web
             builder.Services.AddControllers();
             builder.Services.AddRazorPages();
 
+
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ITicketService,TicketService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped(typeof(IBaseRepository<,>),typeof(BaseRepository<,>)); 
+
+
+
             builder.Services.AddDbContext<DbContext, OnlineTicketAndReservationDbContext>();
 
             builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<OnlineTicketAndReservationDbContext>().AddDefaultTokenProviders();
             builder.Services.AddScoped<ClaimsPrincipal>();
+
+            MapsterConfig.RegisterMapping();
 
             builder.Services.ConfigureApplicationCookie(option =>
             {

@@ -1,0 +1,49 @@
+﻿@page
+@model App.Web.Areas.Identity.Pages.Account.RegisterTicketModel
+@{
+}
+
+
+
+
+<div class="container">
+    <h2 class="text-center">Create Ticket</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="ticketCommand.TicketName" class="control-label"></label>
+                    <input asp-for="ticketCommand.TicketName" class="form-control" />
+                    <span asp-validation-for="ticketCommand.TicketName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ticketCommand.Capacity" class="control-label"></label>
+                    <input asp-for="ticketCommand.Capacity" class="form-control" />
+                    <span asp-validation-for="ticketCommand.Capacity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ticketCommand.price" class="control-label"></label>
+                    <input asp-for="ticketCommand.price" class="form-control" />
+                    <span asp-validation-for="ticketCommand.price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ticketCommand.CategoryId" class="control-label"></label>
+                    <select asp-for="ticketCommand.CategoryId" class="form-control"> @* asp-items="Model.ticketCommand.Categories.Select(c => new SelectListItem { Value = c.id.ToString(), Text = c.CategoryName })" *@
+                        @foreach(var category in Model.ticketCommand.Categories)
+                        {
+                            <option value="@category.Id">@category.CategoryName</option>
+                        }
+
+                    </select>
+                    <span asp-validation-for="ticketCommand.CategoryId" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="ticketCommand.CreatedUserId" />
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

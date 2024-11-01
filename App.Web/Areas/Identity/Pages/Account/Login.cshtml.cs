@@ -16,27 +16,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Model.Entities;
 using DataTransferObject.DTOClasses.Contracts.Commands;
+using Service.ServiceClasses;
+using Service.ServiceInterfaces;
 
 namespace App.Web.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        
         private readonly ILogger<LoginModel> _logger;
+        private readonly IUserService _userService;
 
-        public LoginModel(SignInManager<User> signInManager, UserManager<User> userManager, ILogger<LoginModel> logger)
+        public LoginModel(ILogger<LoginModel> logger, IUserService userService)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
             _logger = logger;
+            _userService = userService;
         }
 
         [BindProperty]
-        public LoginCommand LoginDto { get; set; }
-
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
+        public LoginCommand loginCommand { get; set; }
         public string ReturnUrl { get; set; }
 
         [TempData]
@@ -51,10 +49,8 @@ namespace App.Web.Areas.Identity.Pages.Account
 
             returnUrl ??= Url.Content("~/");
 
-            // Clear the existing external cookie to ensure a clean login process
+           
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
         }
@@ -63,37 +59,24 @@ namespace App.Web.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            
 
             if (ModelState.IsValid)
             {
-                // Try to find user by username or email
-                User user = await _userManager.FindByNameAsync(LoginDto.Email) ??
-                            await _userManager.FindByEmailAsync(LoginDto.Email);
-
-                if (user != null)
+                if (await _userService.UserExist(loginCommand))
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user.UserName, LoginDto.Password, LoginDto.RememberMe, lockoutOnFailure: false);
+                    var result = await _userService.PasswordSignIn(loginCommand);
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
-                    }
-                    if (result.RequiresTwoFactor)
-                    {
-                        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = LoginDto.RememberMe });
-                    }
-                    if (result.IsLockedOut)
-                    {
-                        _logger.LogWarning("User account locked out.");
-                        return RedirectToPage("./Lockout");
                     }
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
 
-            // If we got this far, something failed, redisplay form
+           
             return Page();
         }
     }

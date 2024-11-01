@@ -10,7 +10,8 @@ namespace Service
 {
     public interface IServiceBase<Entity, DTO, KeyTypeId> where Entity : class where DTO : BaseDTO<KeyTypeId> where KeyTypeId : struct
     {
-        public DTO TranslateToDTO(Entity entity);
-        public Entity TranslateToEntity(DTO dto);
+        DTO TranslateToDTO(Entity entity);
+        Entity TranslateToEntity(DTO dto);
+
     }
 }

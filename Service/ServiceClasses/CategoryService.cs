@@ -28,15 +28,18 @@ namespace Service.ServiceClasses
 
         public async Task<bool> AddCategory(CategoryCommand categoryDTO)
         {
-            if (!string.IsNullOrWhiteSpace(categoryDTO.CategoryName) && await _userManager.FindByIdAsync(categoryDTO.CreatedUserId.ToString()) != null)
-            {
+
+
+            /*if (!string.IsNullOrWhiteSpace(categoryDTO.CategoryName) && await _userManager.FindByIdAsync(categoryDTO.CreatedUserId.ToString()) != null)
+            {*/
                 var category = categoryDTO.Adapt<Category>();
                 category.CreatedDateTime = category.UpdatedDateTime = DateTime.Now;
                 category.UpdatedUserId = category.CreatedUserId;
                 await _categoryReoistory.CreateDataAsync(category);
                 return true;
-            }
-            return false;
+           // }
+            
+           // return false;
         }
 
         public async Task<bool> DeleteCategory(int categoryId)

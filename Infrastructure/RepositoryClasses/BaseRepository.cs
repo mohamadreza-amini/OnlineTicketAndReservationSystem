@@ -22,6 +22,7 @@ namespace Infrastructure.RepositoryClasses
         public async Task<T> CreateDataAsync(T data)
         {
             await _dbset.AddAsync(data);
+            await CommitAsync();
             return data;
         }
 
