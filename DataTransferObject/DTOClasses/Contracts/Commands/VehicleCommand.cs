@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataTransferObject.DTOClasses.Results;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace DataTransferObject.DTOClasses.Contracts.Commands
         public string VehicleName { get; set; }
         [Required]
         public int CategoryId { get; set; }
+        public List<CategoryResult> Categories { get; set; }
        
     }
 }

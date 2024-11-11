@@ -10,19 +10,37 @@ namespace App.Web.Controllers;
 public class VehicleController : Controller
 {
     private readonly ICategoryService _categoryService;
-
-    public VehicleController(ICategoryService categoryService)
+    private readonly IVehicleService _vehicleService;
+    public VehicleController(ICategoryService categoryService, IVehicleService vehicleService)
     {
         _categoryService = categoryService;
+        _vehicleService = vehicleService;
     }
+    [HttpGet]
+    public async Task<IActionResult> AddVehicle()
+    {
+        var vehicleCommand = new VehicleCommand();
+        vehicleCommand.Categories = await _categoryService.GetByCategoryType(Shared.Enums.TicketCategory.Vehicle);
+        return View(vehicleCommand);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddVehicle(VehicleCommand vehicleCommand)
+    {
+        _vehicleService.AddVehicle(vehicleCommand);
+        return RedirectToAction("AddVehicle");
+    }
+
+
+
 
     [HttpGet]
     public IActionResult AddVehicleCategory()
-    {  
+    {
         return View();
     }
     [HttpPost]
-    public async Task<IActionResult> AddVehicleCategory([FromBody]CategoryCommand categoryCommand)
+    public async Task<IActionResult> AddVehicleCategory([FromBody] CategoryCommand categoryCommand)
     {
         categoryCommand.TicketCategory = TicketCategory.Vehicle;
         categoryCommand.CreatedUserId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
