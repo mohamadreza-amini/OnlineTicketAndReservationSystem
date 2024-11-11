@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineTicketAndReservationDbContext))]
-    partial class OnlineTicketAndReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241108082505_blob")]
+    partial class blob
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,9 +167,6 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("NVarChar");
 
-                    b.Property<byte>("CategoryType")
-                        .HasColumnType("TinyInt");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
@@ -188,38 +188,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UpdatedUserId");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("Model.Entities.Residence", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("NVarChar");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("NVarChar");
-
-                    b.Property<byte>("Star")
-                        .HasMaxLength(100)
-                        .HasColumnType("TinyInt");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Residence");
                 });
 
             modelBuilder.Entity("Model.Entities.Role", b =>
@@ -286,9 +254,6 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ResidenceId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TicketName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -304,9 +269,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("price")
                         .HasPrecision(13, 3)
                         .HasColumnType("Decimal");
@@ -317,13 +279,9 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CreatedUserId");
 
-                    b.HasIndex("ResidenceId");
-
                     b.HasIndex("UpdatedUserId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("VehicleId");
 
                     b.ToTable("Ticket");
                 });
@@ -454,44 +412,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Model.Entities.Vehicle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comapany")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("NVarChar");
-
-                    b.Property<string>("Destination")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("NVarChar");
-
-                    b.Property<string>("Origin")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("NVarChar");
-
-                    b.Property<string>("VehicleName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("NVarChar");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Vehicle");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Model.Entities.Role", null)
@@ -562,17 +482,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("UpdatedUser");
                 });
 
-            modelBuilder.Entity("Model.Entities.Residence", b =>
-                {
-                    b.HasOne("Model.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("Model.Entities.Ticket", b =>
                 {
                     b.HasOne("Model.Entities.Category", "Category")
@@ -587,12 +496,6 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Model.Entities.Residence", "Residence")
-                        .WithMany("Tickets")
-                        .HasForeignKey("ResidenceId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Model.Entities.User", "UpdatedUser")
                         .WithMany()
                         .HasForeignKey("UpdatedUserId")
@@ -603,21 +506,11 @@ namespace Infrastructure.Migrations
                         .WithMany("Tickets")
                         .HasForeignKey("UserId");
 
-                    b.HasOne("Model.Entities.Vehicle", "Vehicle")
-                        .WithMany("Tickets")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Category");
 
                     b.Navigation("CreatedUser");
 
-                    b.Navigation("Residence");
-
                     b.Navigation("UpdatedUser");
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Model.Entities.TicketUser", b =>
@@ -662,23 +555,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("Blob");
                 });
 
-            modelBuilder.Entity("Model.Entities.Vehicle", b =>
-                {
-                    b.HasOne("Model.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("Model.Entities.Category", b =>
-                {
-                    b.Navigation("Tickets");
-                });
-
-            modelBuilder.Entity("Model.Entities.Residence", b =>
                 {
                     b.Navigation("Tickets");
                 });
@@ -689,11 +566,6 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Model.Entities.User", b =>
-                {
-                    b.Navigation("Tickets");
-                });
-
-            modelBuilder.Entity("Model.Entities.Vehicle", b =>
                 {
                     b.Navigation("Tickets");
                 });

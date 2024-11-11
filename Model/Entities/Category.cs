@@ -9,5 +9,6 @@ namespace Model.Entities;
 public class Category:BaseEntity<int>
 {
     public string CategoryName { get; set; }
+    public byte CategoryType { get; set; }
     public ICollection<Ticket> Tickets { get; set; }
 }

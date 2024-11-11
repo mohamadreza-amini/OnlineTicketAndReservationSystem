@@ -37,7 +37,7 @@ namespace Service.ServiceClasses
                 await _categoryReoistory.CreateDataAsync(category);
                 return true;
             }
-            
+
             return false;
         }
 
@@ -48,8 +48,8 @@ namespace Service.ServiceClasses
 
         public async Task<List<CategoryResult>> GetCategories()
         {
-            var categories= await(await _categoryReoistory.GetAllAsync()).ToListAsync();
-            return categories.Adapt<List<CategoryResult>>();  
+            var categories = await (await _categoryReoistory.GetAllAsync()).ToListAsync();
+            return categories.Adapt<List<CategoryResult>>();
         }
 
 

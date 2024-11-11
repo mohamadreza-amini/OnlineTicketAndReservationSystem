@@ -20,6 +20,8 @@ namespace Infrastructure.Tableconfigs
             builder.Property(x=>x.price).HasColumnType(SqlDbType.Decimal.ToString()).HasPrecision(13,3).IsRequired();
 
             builder.HasOne(x=>x.Category).WithMany(x=>x.Tickets).HasForeignKey(x=>x.CategoryId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Vehicle).WithMany(x => x.Tickets).HasForeignKey(x => x.VehicleId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Residence).WithMany(x => x.Tickets).HasForeignKey(x => x.ResidenceId).OnDelete(DeleteBehavior.NoAction);
 
 
             base.RequireTraceable = true;

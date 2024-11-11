@@ -39,5 +39,8 @@ namespace DataTransferObject.DTOClasses.Contracts.Commands
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "کلمه عبور و تکرار کلمه عبور باید یکسان باشد")]
         public string ConfirmPassword { get; set; }
+
+        public BlobCommand? BlobCommand { get; set; }
+
     }
 }

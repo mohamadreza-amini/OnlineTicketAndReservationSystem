@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineTicketAndReservationDbContext))]
-    partial class OnlineTicketAndReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241111170801_addVehicleResidence")]
+    partial class addVehicleResidence
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -211,9 +214,10 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("NVarChar");
 
-                    b.Property<byte>("Star")
+                    b.Property<string>("Star")
+                        .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TinyInt");
+                        .HasColumnType("NVarChar");
 
                     b.HasKey("Id");
 

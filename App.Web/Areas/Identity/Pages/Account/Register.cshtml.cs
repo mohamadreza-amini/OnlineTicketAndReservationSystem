@@ -36,7 +36,15 @@ namespace App.Web.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public UserCommand userCommand { get; set; }
+        public Input _Input { get; set; }
+
+        public class Input
+        {
+            public UserCommand userCommand { get; set; }
+            public IFormFile formFile { get; set; }
+
+        }
+
         public string ReturnUrl { get; set; }
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -46,16 +54,22 @@ namespace App.Web.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
 
+            var root = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "upload");
+            var address = Path.Combine(root,_Input.formFile.FileName);
+            _Input.userCommand.BlobCommand = new BlobCommand { FileAddress = address ,MimeType = _Input.formFile.ContentType,FileSize=(int)_Input.formFile.Length};
+            
 
             if (ModelState.IsValid)
             {
-                var result = await _userService.CreateUser(userCommand);
 
+                var result = await _userService.CreateUser(_Input.userCommand);
+                
+                _Input.formFile.CopyTo(new FileStream(address, FileMode.Create));
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    await _userService.SignIn(userCommand);
+                    await _userService.SignIn(_Input.userCommand);
 
                     return LocalRedirect(returnUrl);
 

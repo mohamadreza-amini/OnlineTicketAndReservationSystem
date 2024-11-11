@@ -16,6 +16,7 @@ public class CategortConfig:BaseEntityTypeConfiguration<Category,int>
     {
 
         builder.Property(x=>x.CategoryName).HasColumnType(SqlDbType.NVarChar.ToString()).HasMaxLength(50).IsRequired();
+        builder.Property(x=>x.CategoryType).HasColumnType(SqlDbType.TinyInt.ToString()).IsRequired();
 
         base.ValueGeneratedForKey=true;
         base.RequireTraceable=true;

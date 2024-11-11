@@ -13,6 +13,10 @@ public class Ticket : BaseEntity<Guid>
     public decimal price { get; set; }
     public int CategoryId { get; set; }
     public Category Category { get; set; }
+    public int VehicleId { get; set; }
+    public Vehicle Vehicle { get; set; }
+    public int ResidenceId {  get; set; }
+    public Residence Residence { get; set; }
     public ICollection<TicketUser> TicketUsers { get; set; }
-  
+
 }

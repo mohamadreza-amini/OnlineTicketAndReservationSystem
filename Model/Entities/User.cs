@@ -11,6 +11,8 @@ namespace Model.Entities
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
+        public int BlobId {  get; set; }
+        public Blob Blob { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
     }
 }

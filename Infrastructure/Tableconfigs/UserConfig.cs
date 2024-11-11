@@ -14,7 +14,7 @@ namespace Infrastructure.Tableconfigs
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-
+            builder.HasOne(x=>x.Blob).WithMany().HasForeignKey(x=>x.BlobId).OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(x => x.LastName).IsRequired().HasMaxLength(50).HasColumnType(SqlDbType.VarChar.ToString());
             builder.Property(x => x.FirstName).IsRequired().HasMaxLength(50).HasColumnType(SqlDbType.VarChar.ToString());

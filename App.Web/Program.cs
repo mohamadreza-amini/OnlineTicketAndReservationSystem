@@ -1,6 +1,7 @@
 using Infrastructure;
 using Infrastructure.RepositoryClasses;
 using Infrastructure.RepositoryInterfaces;
+using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
@@ -29,6 +30,8 @@ namespace App.Web
             builder.Services.AddScoped<ITicketService,TicketService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IBlobService, BlobService>();
+
             builder.Services.AddScoped(typeof(IBaseRepository<,>),typeof(BaseRepository<,>)); 
 
 
@@ -38,6 +41,7 @@ namespace App.Web
             builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<OnlineTicketAndReservationDbContext>().AddDefaultTokenProviders();
             builder.Services.AddScoped<ClaimsPrincipal>();
 
+            TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
             MapsterConfig.RegisterMapping();
 
             builder.Services.ConfigureApplicationCookie(option =>
@@ -80,3 +84,8 @@ namespace App.Web
         }
     }
 }
+
+
+
+
+

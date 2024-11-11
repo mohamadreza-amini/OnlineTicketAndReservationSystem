@@ -16,17 +16,22 @@ namespace Service.ServiceClasses
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IBlobService _blobService;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IBlobService blobService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _blobService = blobService;
         }
 
         public async Task<IdentityResult> CreateUser(UserCommand user)
         {
             var data = user.Adapt<User>();
             data.Id = Guid.NewGuid();
+            //data.BlobId = 1;
+           // var blob = user.BlobCommand.Adapt<Blob>();
+            //await _blobService.Create(blob);
             return await _userManager.CreateAsync(data, user.Password);
         }
 

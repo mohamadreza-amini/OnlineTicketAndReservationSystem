@@ -1,0 +1,21 @@
+﻿@model DataTransferObject.DTOClasses.Contracts.Commands.CategoryCommand;
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-md-6">
+        <form>
+            <div class="form-group">
+                <label asp-for="CategoryName" class="control-label"></label>
+                <input asp-for="CategoryName" class="form-control" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+
+            <button type="button" onclick="AddVehicleCategory(event)" class="btn btn-primary btn-block mt-3 pt-3">ذخیره</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @Html.RenderPartialAsync("_validationscriptspartial");
+
+}
