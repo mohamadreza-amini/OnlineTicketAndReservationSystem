@@ -7,51 +7,59 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Service.ServiceInterfaces;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.ServiceClasses
+namespace Service.ServiceClasses;
+
+public class CategoryService : ICategoryService
 {
-    public class CategoryService : ICategoryService
+    private readonly IBaseRepository<Category, int> _categoryReoistory;
+    private readonly UserManager<User> _userManager;
+
+    public CategoryService(UserManager<User> userManager, IBaseRepository<Category, int> categoryReoistory)
     {
-        private readonly IBaseRepository<Category, int> _categoryReoistory;
-        private readonly UserManager<User> _userManager;
-
-        public CategoryService(UserManager<User> userManager, IBaseRepository<Category, int> categoryReoistory)
-        {
-            _userManager = userManager;
-            _categoryReoistory = categoryReoistory;
-        }
-
-        public async Task<bool> AddCategory(CategoryCommand categoryDTO)
-        {
-
-            if (!string.IsNullOrWhiteSpace(categoryDTO.CategoryName) && await _userManager.FindByIdAsync(categoryDTO.CreatedUserId.ToString()) != null)
-            {
-                var category = categoryDTO.Adapt<Category>();
-                category.CreatedDateTime = category.UpdatedDateTime = DateTime.Now;
-                category.UpdatedUserId = category.CreatedUserId;
-                await _categoryReoistory.CreateDataAsync(category);
-                return true;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> DeleteCategory(int categoryId)
-        {
-            return await _categoryReoistory.DeleteDataAsync(categoryId);
-        }
-
-        public async Task<List<CategoryResult>> GetCategories()
-        {
-            var categories = await (await _categoryReoistory.GetAllAsync()).ToListAsync();
-            return categories.Adapt<List<CategoryResult>>();
-        }
-
-
+        _userManager = userManager;
+        _categoryReoistory = categoryReoistory;
     }
+
+    public async Task<bool> AddCategory(CategoryCommand categoryDTO)
+    {
+
+        if (!string.IsNullOrWhiteSpace(categoryDTO.CategoryName) && await _userManager.FindByIdAsync(categoryDTO.CreatedUserId.ToString()) != null)
+        {
+            var category = categoryDTO.Adapt<Category>();
+            category.CreatedDateTime = category.UpdatedDateTime = DateTime.Now;
+            category.UpdatedUserId = category.CreatedUserId;
+            await _categoryReoistory.CreateDataAsync(category);
+            return true;
+        }
+
+        return false;
+    }
+
+    public async Task<bool> DeleteCategory(int categoryId)
+    {
+        return await _categoryReoistory.DeleteDataAsync(categoryId);
+    }
+
+    public async Task<List<CategoryResult>> GetByCategoryType(TicketCategory ticketCategory)
+    {
+        var categoryType = (byte)ticketCategory;
+        var Categories1 = await _categoryReoistory.GetAllAsync(x => x.CategoryType == categoryType);
+        var Categories2 =  Categories1.ToList();
+        return Categories2.Adapt<List<CategoryResult>>();
+    }
+
+    public async Task<List<CategoryResult>> GetCategories()
+    {
+        var categories = await (await _categoryReoistory.GetAllAsync()).ToListAsync();
+        return categories.Adapt<List<CategoryResult>>();
+    }
+
+
 }

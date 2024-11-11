@@ -17,7 +17,7 @@ namespace App.Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("OnlineTicketAndReservationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'OnlineTicketAndReservationDbContextConnection' not found.");
+           // var connectionString = builder.Configuration.GetConnectionString("OnlineTicketAndReservationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'OnlineTicketAndReservationDbContextConnection' not found.");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -31,6 +31,8 @@ namespace App.Web
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IBlobService, BlobService>();
+            builder.Services.AddScoped<IResidenceService, ResidenceService>();
+            builder.Services.AddScoped<IVehicleService,VehicleService>();
 
             builder.Services.AddScoped(typeof(IBaseRepository<,>),typeof(BaseRepository<,>)); 
 

@@ -2,6 +2,7 @@
 using DataTransferObject.DTOClasses.Contracts.Commands;
 using DataTransferObject.DTOClasses.Results;
 using Model.Entities;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,4 +16,5 @@ public interface ICategoryService
     Task<bool> AddCategory(CategoryCommand categoryDTO);
     Task<bool> DeleteCategory(int categoryId);
     Task<List<CategoryResult>> GetCategories();
+    Task<List<CategoryResult>> GetByCategoryType(TicketCategory ticketCategory);
 }

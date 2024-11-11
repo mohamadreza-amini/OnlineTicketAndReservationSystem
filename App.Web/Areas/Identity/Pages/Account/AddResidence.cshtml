@@ -1,0 +1,45 @@
+﻿@page
+@model App.Web.Areas.Identity.Pages.Account.AddResidenceModel
+
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-md-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="residenceCommand.Name" class="control-label"></label>
+                <input asp-for="residenceCommand.Name" class="form-control" />
+                <span asp-validation-for="residenceCommand.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="residenceCommand.Address" class="control-label"></label>
+                <input asp-for="residenceCommand.Address" class="form-control" />
+                <span asp-validation-for="residenceCommand.Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="residenceCommand.Star" class="control-label"></label>
+                <input asp-for="residenceCommand.Star" class="form-control" type="number" min="0" max="6" />
+                <span asp-validation-for="residenceCommand.Star" class="text-danger"></span>
+            </div>
+
+             <div class="form-group">
+                <label asp-for="residenceCommand.CategoryId" class="control-label"></label>
+                <select asp-for="residenceCommand.CategoryId" class="form-control" >
+                    <option value="">Select a Category</option>
+                    @foreach(var category in Model.residenceCommand.Categories)
+                    {
+                        <option value="@category.Id">@category.CategoryName</option>
+                    }
+                </select>
+                <span asp-validation-for="residenceCommand.CategoryId" class="text-danger"></span>
+            </div> 
+
+            <button type="submit" class="btn btn-primary btn-block mt-3">Submit</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
